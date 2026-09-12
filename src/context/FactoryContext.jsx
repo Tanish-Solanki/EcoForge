@@ -2,44 +2,11 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { apiService } from '../api/apiService';
 import { industrialInputService } from '../services/industrialInputService';
 import { initialRoadmapActions, factoryInfo as defaultFactory, dashboardOverview } from '../data/mockData';
+import { computeFullFactoryReport } from '../services/carbonEmissionEngine';
 
 const FactoryContext = createContext();
 
-const DEFAULT_INDUSTRIAL_INPUTS = [
-    {
-        inputId: "coking-coal",
-        name: "Coking coal / metallurgical coal",
-        section: "Material-1",
-        co2Share: "18–22%",
-        basis: "Major process fuel/reductant",
-        selectedUseCases: ["iron-steel", "bf-bof"],
-        quantity: 12000,
-        unit: "tonnes",
-        notes: "Primary metallurgical reductant"
-    },
-    {
-        inputId: "natural-gas",
-        name: "Natural gas / LNG (as feedstock & fuel)",
-        section: "Material-2",
-        co2Share: "5–7%",
-        basis: "Fuel + feedstock",
-        selectedUseCases: ["boilers-ng", "process-heat"],
-        quantity: 1200000,
-        unit: "Nm³",
-        notes: "Thermal heat for process boilers"
-    },
-    {
-        inputId: "synthetic-dyes",
-        name: "Synthetic dyes & auxiliaries",
-        section: "Material-3",
-        co2Share: "0.3–0.7%",
-        basis: "Process chemicals",
-        selectedUseCases: ["textiles-dyes"],
-        quantity: 45,
-        unit: "tonnes",
-        notes: "Coloring & polymer surface auxiliaries"
-    }
-];
+const DEFAULT_INDUSTRIAL_INPUTS = [];
 
 export const FactoryProvider = ({ children }) => {
     const [factory, setFactory] = useState(defaultFactory);
@@ -60,42 +27,25 @@ export const FactoryProvider = ({ children }) => {
     // Industrial Inputs Structured State
     const [industrialInputs, setIndustrialInputs] = useState(DEFAULT_INDUSTRIAL_INPUTS);
 
+    // Computed Factory Report State
+    const [computedReport, setComputedReport] = useState(() => {
+        try {
+            const stored = localStorage.getItem('ecoforge_computed_factory_report');
+            return stored ? JSON.parse(stored) : null;
+        } catch (e) {
+            return null;
+        }
+    });
+
     // 8-Step Setup Workflow Data Model (Supports Arrays of Materials per Section)
     const [setupData, setSetupData] = useState({
         name: "EcoPlast Manufacturing",
         industry: "Plastic Manufacturing",
         processes: ["Injection Molding", "Extrusion"],
-        materials: ["PP Virgin", "HDPE", "ABS", "Recycled PP"],
-        material1: [
-            {
-                selectedMaterialId: "coking-coal",
-                materialName: "Coking coal / metallurgical coal",
-                useCases: ["iron-steel", "bf-bof"],
-                quantity: 12000,
-                unit: "tonnes",
-                notes: "Primary metallurgical reductant"
-            }
-        ],
-        material2: [
-            {
-                selectedMaterialId: "natural-gas",
-                materialName: "Natural gas / LNG (as feedstock & fuel)",
-                useCases: ["boilers-ng", "process-heat"],
-                quantity: 1200000,
-                unit: "Nm³",
-                notes: "Thermal heat for process boilers"
-            }
-        ],
-        material3: [
-            {
-                selectedMaterialId: "synthetic-dyes",
-                materialName: "Synthetic dyes & auxiliaries",
-                useCases: ["textiles-dyes"],
-                quantity: 45,
-                unit: "tonnes",
-                notes: "Coloring & polymer surface auxiliaries"
-            }
-        ],
+        materials: [],
+        material1: [],
+        material2: [],
+        material3: [],
         gridPowerKwh: 512000,
         solarKwh: 120000,
         dieselLiters: 31500,
@@ -147,6 +97,29 @@ export const FactoryProvider = ({ children }) => {
     useEffect(() => {
         loadAllData();
     }, []);
+
+    // RUN FACTORY ANALYSIS UPON CLICKING "ANALYZE FACTORY"
+    const runFactoryAnalysis = (materialsList = [], currentSetupData = setupData) => {
+        const report = computeFullFactoryReport(materialsList, currentSetupData);
+        setComputedReport(report);
+
+        // Update dashboard metrics dynamically
+        setDashboard(prev => ({
+            ...prev,
+            totalEmissionsTCO2e: report.totalEmissionsTCO2e,
+            reductionPotentialTCO2e: report.totalFeasibleSavingsTCO2e,
+            reductionPotentialPercent: report.reductionPotentialPercent,
+            annualSavingsINR: report.totalAnnualSavingsINR
+        }));
+
+        try {
+            localStorage.setItem('ecoforge_computed_factory_report', JSON.stringify(report));
+        } catch (e) {
+            console.warn("Unable to save computed report to localStorage:", e);
+        }
+
+        return report;
+    };
 
     // Save Industrial Inputs to persistence
     const saveIndustrialInputs = (newInputs) => {
@@ -239,6 +212,8 @@ export const FactoryProvider = ({ children }) => {
             setupData,
             setSetupData,
             updateSetupSection,
+            computedReport,
+            runFactoryAnalysis,
             retry: loadAllData,
             addToRoadmap,
             updateRoadmapAction,

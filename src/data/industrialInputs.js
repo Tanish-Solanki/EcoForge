@@ -36,9 +36,11 @@ export const MASTER_INDUSTRIAL_INPUTS = [
         co2Share: "18–22%",
         basis: "Major process fuel/reductant",
         sectors: [
-            { id: "iron-steel", label: "Iron & steel" },
-            { id: "bf-bof", label: "BF-BOF" },
-            { id: "dri", label: "DRI" }
+            { id: "bf-bof", label: "Integrated steelmaking (BF-BOF)" },
+            { id: "foundries", label: "Foundries & cast iron" },
+            { id: "ferroalloys", label: "Ferroalloys (FeMn, FeCr, SiMn)" },
+            { id: "lead-zinc", label: "Lead & zinc smelting" },
+            { id: "lime-magnesium", label: "Lime & magnesium production" }
         ],
         searchKeywords: ["coking", "metallurgical", "coal", "steel", "bf-bof", "dri", "reductant", "iron", "smelting"],
         defaultUnit: "tonnes",
@@ -51,8 +53,8 @@ export const MASTER_INDUSTRIAL_INPUTS = [
         co2Share: "12–15%",
         basis: "Process + calcination emissions",
         sectors: [
-            { id: "cement", label: "Cement" },
-            { id: "lime", label: "Lime manufacturing" }
+            { id: "cement", label: "Cement / clinker production" },
+            { id: "lime", label: "Lime Manufacturing & Quicklime Kilns" }
         ],
         searchKeywords: ["limestone", "clinker", "cement", "lime", "calcination", "calcium carbonate", "kiln"],
         defaultUnit: "tonnes",
@@ -65,11 +67,9 @@ export const MASTER_INDUSTRIAL_INPUTS = [
         co2Share: "10–13%",
         basis: "Industrial combustion",
         sectors: [
-            { id: "cement-kilns", label: "Cement kilns" },
-            { id: "boilers", label: "Industrial boilers" },
-            { id: "dri-thermal", label: "DRI thermal" },
-            { id: "bricks", label: "Bricks" },
-            { id: "ceramics", label: "Ceramics" }
+            { id: "boilers", label: "Industrial power & steam" },
+            { id: "cement-kilns", label: "Cement kiln fuel" },
+            { id: "dri-thermal", label: "Coal-based DRI" }
         ],
         searchKeywords: ["thermal coal", "non-coking", "coal", "boiler", "cement", "brick", "ceramics", "combustion"],
         defaultUnit: "tonnes",
@@ -82,8 +82,12 @@ export const MASTER_INDUSTRIAL_INPUTS = [
         co2Share: "8–11%",
         basis: "Upstream/process-intensive input",
         sectors: [
-            { id: "steel-milling", label: "Steel" },
-            { id: "foundries", label: "Foundries" }
+            { id: "steel-milling", label: "Integrated steelmaking" },
+            { id: "foundries", label: "Foundries / cast iron" },
+            { id: "merchant-iron", label: "Merchant pig iron / hot metal" },
+            { id: "blast-furnace", label: "Blast furnace ironmaking" },
+            { id: "dri-production", label: "DRI production" },
+            { id: "pelletizing", label: "Pelletizing" }
         ],
         searchKeywords: ["iron ore", "pig iron", "hot metal", "steel", "foundry", "pellets", "sinter", "blast furnace"],
         defaultUnit: "tonnes",
@@ -96,9 +100,10 @@ export const MASTER_INDUSTRIAL_INPUTS = [
         co2Share: "4–6%",
         basis: "High-carbon fuel",
         sectors: [
-            { id: "cement-petcoke", label: "Cement kilns" },
-            { id: "refineries", label: "Refineries" },
-            { id: "boilers-petcoke", label: "Industrial boilers" }
+            { id: "cement-petcoke", label: "Cement & lime kilns" },
+            { id: "aluminium-smelting", label: "Aluminium smelting" },
+            { id: "steelmaking", label: "Steelmaking" },
+            { id: "boilers-petcoke", label: "Power & industrial boilers" }
         ],
         searchKeywords: ["petcoke", "petroleum coke", "cement", "refinery", "boiler", "high carbon"],
         defaultUnit: "tonnes",
@@ -115,13 +120,13 @@ export const MASTER_INDUSTRIAL_INPUTS = [
         co2Share: "5–7%",
         basis: "Fuel + feedstock",
         sectors: [
-            { id: "fertilizers-ammonia", label: "Fertilizers (ammonia)" },
-            { id: "refineries-ng", label: "Refineries" },
-            { id: "petrochemicals-ng", label: "Petrochemicals" },
-            { id: "glass", label: "Glass" },
-            { id: "ceramics-ng", label: "Ceramics" },
-            { id: "boilers-ng", label: "Boilers" },
-            { id: "process-heat", label: "Process heat" }
+            { id: "h2-production", label: "Hydrogen production" },
+            { id: "ammonia", label: "Ammonia production" },
+            { id: "methanol", label: "Methanol production" },
+            { id: "process-heat", label: "Industrial process heat" },
+            { id: "cement", label: "Cement production" },
+            { id: "glass", label: "Glass manufacturing" },
+            { id: "steel", label: "Steel production" }
         ],
         searchKeywords: ["natural gas", "lng", "methane", "fertilizers", "ammonia", "glass", "ceramics", "petrochemicals", "refineries", "boilers", "process heat"],
         defaultUnit: "Nm³",
@@ -134,9 +139,9 @@ export const MASTER_INDUSTRIAL_INPUTS = [
         co2Share: "3–5%",
         basis: "Hydrogen/feedstock emissions",
         sectors: [
-            { id: "fertilizers", label: "Fertilizers" },
+            { id: "fertilizers", label: "Fertilizers & Urea" },
             { id: "chemicals-ammonia", label: "Industrial chemicals" },
-            { id: "explosives", label: "Explosives" }
+            { id: "explosives", label: "Nitrate explosives" }
         ],
         searchKeywords: ["ammonia", "smr", "grey ammonia", "fertilizers", "urea", "nitrates", "chemical"],
         defaultUnit: "tonnes",
@@ -149,9 +154,11 @@ export const MASTER_INDUSTRIAL_INPUTS = [
         co2Share: "3–5%",
         basis: "Feedstock",
         sectors: [
-            { id: "petrochemicals", label: "Petrochemicals" },
-            { id: "plastics-naphtha", label: "Plastics" },
-            { id: "synthetic-fibers", label: "Synthetic fibers" }
+            { id: "steam-cracking", label: "Steam Cracking (Ethylene/Propylene)" },
+            { id: "catalytic-reforming", label: "Catalytic Reforming (Aromatics/BTX)" },
+            { id: "propylene", label: "On-purpose Propylene / FCC–Steam Cracker" },
+            { id: "butadiene", label: "Butadiene (C4 Fraction from Cracking)" },
+            { id: "refinery-naphtha", label: "Refinery Naphtha (Gasoline Blending)" }
         ],
         searchKeywords: ["naphtha", "crude", "petrochemicals", "cracker", "ethylene", "propylene", "plastics", "synthetic fibers"],
         defaultUnit: "tonnes",
@@ -164,10 +171,13 @@ export const MASTER_INDUSTRIAL_INPUTS = [
         co2Share: "2–3%",
         basis: "Energy-intensive primary material",
         sectors: [
-            { id: "castings", label: "Castings" },
-            { id: "extrusions", label: "Extrusions" },
-            { id: "conductors", label: "Conductors" },
-            { id: "automotive-parts", label: "Automotive parts" }
+            { id: "anode-baking", label: "Anode Baking Furnace" },
+            { id: "casthouse", label: "Casthouse / Melting & Holding Furnace" },
+            { id: "alumina-calcination", label: "Alumina Calcination (Refinery)" },
+            { id: "inert-anode", label: "Inert Anode Smelting (Process Alternative)" },
+            { id: "aluminium-prod", label: "Aluminium production" },
+            { id: "refractories", label: "Refractory products" },
+            { id: "abrasives", label: "Abrasive manufacturing" }
         ],
         searchKeywords: ["aluminium", "aluminum", "ingot", "billet", "extrusion", "casting", "smelting", "conductor"],
         defaultUnit: "tonnes",
@@ -180,11 +190,15 @@ export const MASTER_INDUSTRIAL_INPUTS = [
         co2Share: "1–2%",
         basis: "Polymer/feedstock",
         sectors: [
-            { id: "packaging", label: "Packaging" },
-            { id: "textiles-plastics", label: "Textiles" },
-            { id: "consumer-goods", label: "Consumer goods" },
-            { id: "automotive-polymers", label: "Automotive polymers" },
-            { id: "injection-molding", label: "Injection molding" }
+            { id: "steam-cracking", label: "Steam Cracking (Ethylene/Propylene)" },
+            { id: "pdh", label: "Ethane/Propane Dehydrogenation (PDH)" },
+            { id: "meg-pet", label: "Ethylene Oxidation (Ethylene → MEG for PET)" },
+            { id: "pta-pet", label: "Paraxylene Production (PTA for PET)" },
+            { id: "vcm-pvc", label: "Vinyl Chloride Monomer (VCM for PVC)" },
+            { id: "reactors", label: "Polymerization Reactors (PE, PP, PET, PVC)" },
+            { id: "feedstock-ethane", label: "Feedstock: Ethane/Propane (PE, PP)" },
+            { id: "feedstock-naphtha", label: "Feedstock: Naphtha (PET, PVC, PE, PP)" },
+            { id: "process-heat", label: "Process Heat & Steam (All Resins)" }
         ],
         searchKeywords: ["virgin plastic", "resin", "pp", "pet", "pvc", "pe", "hdpe", "ldpe", "polymers", "packaging", "textiles", "consumer goods", "injection molding"],
         defaultUnit: "tonnes",
@@ -201,10 +215,10 @@ export const MASTER_INDUSTRIAL_INPUTS = [
         co2Share: "1–2%",
         basis: "Chlor-alkali products",
         sectors: [
+            { id: "chlor-alkali", label: "Chlor-alkali electrolysis / caustic soda feed" },
             { id: "textiles-caustic", label: "Textiles" },
             { id: "chemicals-caustic", label: "Chemicals" },
-            { id: "pulp-paper", label: "Pulp & paper" },
-            { id: "water-treatment", label: "Water treatment" }
+            { id: "pulp-paper", label: "Pulp & paper" }
         ],
         searchKeywords: ["caustic soda", "chlorine", "sodium hydroxide", "chlor-alkali", "textiles", "pulp", "paper", "water treatment"],
         defaultUnit: "tonnes",
@@ -232,9 +246,9 @@ export const MASTER_INDUSTRIAL_INPUTS = [
         co2Share: "0.3–0.7%",
         basis: "Chemical/feedstock",
         sectors: [
-            { id: "chemicals-methanol", label: "Chemicals" },
-            { id: "solvents", label: "Solvents" },
-            { id: "biodiesel", label: "Biodiesel" },
+            { id: "e-methanol", label: "E-Methanol & Biomethanol production" },
+            { id: "solvents", label: "Chemical Solvents" },
+            { id: "biodiesel", label: "Biodiesel Synthesis" },
             { id: "industrial-fuels", label: "Industrial fuels" }
         ],
         searchKeywords: ["methanol", "methyl alcohol", "solvents", "biodiesel", "formalin", "chemicals"],
@@ -263,9 +277,9 @@ export const MASTER_INDUSTRIAL_INPUTS = [
         co2Share: "0.5–1.5%",
         basis: "Supporting industrial inputs",
         sectors: [
-            { id: "steel-refractories", label: "Steel" },
-            { id: "glass-refractories", label: "Glass" },
-            { id: "chemicals-gases", label: "Chemicals" },
+            { id: "steel-refractories", label: "Steel refractories" },
+            { id: "glass-refractories", label: "Glass refractories" },
+            { id: "chemicals-gases", label: "Chemicals & industrial gases" },
             { id: "metal-processing", label: "Metal processing" }
         ],
         searchKeywords: ["refractories", "industrial gases", "oxygen", "nitrogen", "hydrogen", "argon", "steel", "glass", "metal processing"],

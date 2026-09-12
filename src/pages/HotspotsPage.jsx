@@ -2,25 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFactory } from '../context/FactoryContext';
 import {
-    LineChart,
-    Line,
-    XAxis,
-    YAxis,
-    Tooltip,
-    ResponsiveContainer,
-    CartesianGrid
-} from 'recharts';
-import {
     Flame,
     AlertTriangle,
     ArrowRight,
     ChevronRight,
     X,
     Sparkles,
-    Zap,
-    Activity,
-    Layers,
-    CheckCircle2,
     GitBranch
 } from 'lucide-react';
 
@@ -65,20 +52,20 @@ export const HotspotsPage = () => {
                         <div
                             key={hs.id}
                             className={`bg-[#101320] border rounded-2xl p-5 shadow-xl flex flex-col justify-between transition-all hover:border-indigo-500/50 ${isCritical
-                                    ? 'border-rose-800/50 hover:shadow-rose-950/20'
-                                    : isHigh
-                                        ? 'border-amber-800/50 hover:shadow-amber-950/20'
-                                        : 'border-slate-800/80'
+                                ? 'border-rose-800/50 hover:shadow-rose-950/20'
+                                : isHigh
+                                    ? 'border-amber-800/50 hover:shadow-amber-950/20'
+                                    : 'border-slate-800/80'
                                 }`}
                         >
                             <div>
                                 {/* Severity & Category header */}
                                 <div className="flex items-center justify-between pb-3 border-b border-slate-800/60 mb-3">
                                     <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded border uppercase ${isCritical
-                                            ? 'bg-rose-950 text-rose-300 border-rose-800'
-                                            : isHigh
-                                                ? 'bg-amber-950 text-amber-300 border-amber-800'
-                                                : 'bg-slate-900 text-slate-300 border-slate-700'
+                                        ? 'bg-rose-950 text-rose-300 border-rose-800'
+                                        : isHigh
+                                            ? 'bg-amber-950 text-amber-300 border-amber-800'
+                                            : 'bg-slate-900 text-slate-300 border-slate-700'
                                         }`}>
                                         {hs.severity} SEVERITY
                                     </span>
@@ -186,29 +173,13 @@ export const HotspotsPage = () => {
                                                 <span className="text-slate-400 ml-1.5">{node.text}</span>
                                             </div>
                                             {i < selectedHotspot.causeChain.length - 1 && (
-                                                <ArrowRight className="w-3.5 h-3.5 text-slate-600 hidden sm:block" />
+                                                <ArrowRight className="w-3.5 h-3.5 text-slate-600 hidden sm:block shrink-0" />
                                             )}
                                         </div>
                                     ))
                                 ) : (
                                     <p className="text-xs text-slate-400">{selectedHotspot.probableCause}</p>
                                 )}
-                            </div>
-                        </div>
-
-                        {/* Historical Trend Chart */}
-                        <div>
-                            <h3 className="text-xs font-mono uppercase text-slate-400 font-semibold mb-2">Historical Monthly Trend</h3>
-                            <div className="h-40 w-full bg-[#0b0d14] p-3 rounded-xl border border-slate-800">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <LineChart data={selectedHotspot.historicalData}>
-                                        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                                        <XAxis dataKey="month" stroke="#64748b" fontSize={10} />
-                                        <YAxis stroke="#64748b" fontSize={10} />
-                                        <Tooltip contentStyle={{ backgroundColor: '#141829', borderColor: '#334155', borderRadius: '8px', fontSize: '11px' }} />
-                                        <Line type="monotone" dataKey="emissions" stroke="#f59e0b" strokeWidth={2} dot={{ fill: '#f59e0b' }} />
-                                    </LineChart>
-                                </ResponsiveContainer>
                             </div>
                         </div>
 

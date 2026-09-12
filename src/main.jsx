@@ -2,9 +2,24 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
+import { ErrorBoundary } from './components/ErrorBoundary.jsx'
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+console.log("🚀 Initializing EcoForge AI React App...");
+
+const rootElement = document.getElementById('root');
+if (!rootElement) {
+  console.error("Root element #root not found in DOM!");
+} else {
+  console.log("Mounting React Root onto #root...");
+  try {
+    createRoot(rootElement).render(
+      <StrictMode>
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
+      </StrictMode>,
+    );
+  } catch (err) {
+    console.error("Fatal error during createRoot render:", err);
+  }
+}

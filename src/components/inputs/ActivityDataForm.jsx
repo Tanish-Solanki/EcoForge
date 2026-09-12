@@ -23,7 +23,7 @@ export const ActivityDataForm = ({
                 </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
                 {/* Quantity */}
                 <div>
                     <label className="block text-[11px] font-mono text-slate-300 mb-1 flex items-center gap-1">
@@ -61,15 +61,31 @@ export const ActivityDataForm = ({
                     </select>
                 </div>
 
-                {/* Annual Consumption (derived/synced or specific) */}
+                {/* Unit Cost */}
                 <div>
-                    <label className="block text-[11px] font-mono text-slate-300 mb-1">
-                        Annual Feedstock Volume
+                    <label className="block text-[11px] font-mono text-slate-300 mb-1 flex items-center gap-1">
+                        <span className="text-slate-400 font-bold text-[10px]">₹</span>
+                        Unit Cost (₹ / unit)
                     </label>
                     <input
                         type="number"
                         min="0"
-                        placeholder="Same as annual quantity"
+                        placeholder="e.g. 85000"
+                        value={formData.costPerUnit ?? formData.cost ?? ''}
+                        onChange={(e) => onChangeFormData({ ...formData, costPerUnit: e.target.value, cost: e.target.value })}
+                        className="w-full bg-[#141728] border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-100 font-mono focus:outline-none focus:border-indigo-500"
+                    />
+                </div>
+
+                {/* Annual Consumption */}
+                <div>
+                    <label className="block text-[11px] font-mono text-slate-300 mb-1">
+                        Annual Volume
+                    </label>
+                    <input
+                        type="number"
+                        min="0"
+                        placeholder="Same as quantity"
                         value={formData.annualConsumption || formData.quantity || ''}
                         onChange={(e) => onChangeFormData({ ...formData, annualConsumption: e.target.value })}
                         className="w-full bg-[#141728] border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-100 font-mono focus:outline-none focus:border-indigo-500 placeholder:text-slate-600"

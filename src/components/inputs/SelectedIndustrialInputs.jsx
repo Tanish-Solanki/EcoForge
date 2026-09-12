@@ -70,7 +70,7 @@ export const SelectedIndustrialInputs = ({
     const openAddModal = () => {
         setNewInputObj(null);
         setNewUseCases([]);
-        setNewFormData({ quantity: '', unit: 'tonnes', notes: '' });
+        setNewFormData({ quantity: '', unit: 'tonnes', costPerUnit: '', notes: '' });
         setModalError('');
         setIsAddModalOpen(true);
     };
@@ -84,7 +84,8 @@ export const SelectedIndustrialInputs = ({
         }
         setNewFormData(prev => ({
             ...prev,
-            unit: itemObj.defaultUnit || (itemObj.units && itemObj.units[0]) || 'tonnes'
+            unit: itemObj.defaultUnit || (itemObj.units && itemObj.units[0]) || 'tonnes',
+            costPerUnit: itemObj.defaultCostPerUnit || 85000
         }));
         setModalError('');
     };
@@ -124,6 +125,8 @@ export const SelectedIndustrialInputs = ({
             selectedUseCases: newUseCases,
             quantity: Number(newFormData.quantity),
             unit: newFormData.unit,
+            costPerUnit: Number(newFormData.costPerUnit || newFormData.cost || 85000),
+            cost: Number(newFormData.costPerUnit || newFormData.cost || 85000),
             annualConsumption: Number(newFormData.quantity),
             notes: newFormData.notes
         };
@@ -393,6 +396,24 @@ export const SelectedIndustrialInputs = ({
                                         <option key={u} value={u}>{u}</option>
                                     ))}
                                 </select>
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-mono text-slate-300 mb-1">Unit Cost (₹ / unit)</label>
+                                <input
+                                    type="number"
+                                    value={activeItem.costPerUnit ?? activeItem.cost ?? ''}
+                                    onChange={(e) => handleActiveFieldChange('costPerUnit', Number(e.target.value))}
+                                    placeholder="Cost per unit in ₹"
+                                    className="w-full bg-[#0b0d14] border border-slate-700/70 rounded-lg px-3 py-2 text-xs text-slate-100 font-mono focus:border-indigo-500 focus:outline-none"
+                                />
+                            </div>
+
+                            <div className="sm:col-span-3 flex items-center justify-between bg-[#0b0d14] p-3 rounded-lg border border-slate-800/80">
+                                <span className="text-xs font-mono text-slate-400">Total Material Cost / Budget:</span>
+                                <span className="text-xs font-mono font-bold text-amber-400">
+                                    ₹ {((Number(activeItem.quantity) || 0) * (Number(activeItem.costPerUnit ?? activeItem.cost) || 0)).toLocaleString()}
+                                </span>
                             </div>
 
                             <div className="sm:col-span-3">
